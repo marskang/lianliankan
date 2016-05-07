@@ -1,0 +1,7 @@
+﻿  D2DResources.cpp
+g:\demo\directx\lianliankan\lianliankan\d2dresources.cpp(135): warning C4244: 'argument' : conversion from 'int' to 'FLOAT', possible loss of data
+g:\demo\directx\lianliankan\lianliankan\d2dresources.cpp(136): warning C4244: 'argument' : conversion from 'int' to 'FLOAT', possible loss of data
+g:\demo\directx\lianliankan\lianliankan\d2dresources.cpp(141): warning C4244: 'argument' : conversion from 'int' to 'FLOAT', possible loss of data
+g:\demo\directx\lianliankan\lianliankan\d2dresources.cpp(180): warning C4244: 'argument' : conversion from 'int' to 'FLOAT', possible loss of data
+g:\demo\directx\lianliankan\lianliankan\d2dresources.cpp(183): warning C4244: 'argument' : conversion from 'int' to 'FLOAT', possible loss of data
+  lianliankan.vcxproj -> G:\demo\directx\lianliankan\Debug\lianliankan.exe
