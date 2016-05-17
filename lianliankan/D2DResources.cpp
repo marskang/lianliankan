@@ -159,22 +159,22 @@ HRESULT D2DResources::OnRender() {
 			}
 		}
 		//²¥·Å¶¯»­
-		/*if (animationNum != (nowFrame - 1)) {
+		/*if (minAnimationNum != (nowFrame - 1)) {
 			DWORD tNow = GetTickCount();
 			if ((tNow - tPre) >= 30) {
-				int aniX = animationPath[nowFrame].x;
-				int aniY = animationPath[nowFrame].y;
+				int aniX = minAnimationPath[nowFrame].x;
+				int aniY = minAnimationPath[nowFrame].y;
 				D2D1_POINT_2F startP = D2D1::Point2F();
 				m_pRenderTarget->DrawLine()
 				tPre = tNow;
 			}
 		}*/
-		if (animationNum != 0) {
-			for (int i = 0; i < animationNum - 1; i++) {
-				int aStartX = animationPath[i].y;
-				int aStartY = animationPath[i].x;
-				int aEndX = animationPath[i + 1].y;
-				int aEndY = animationPath[i + 1].x;
+		if (minAnimationNum != 0 && minAnimationNum != 65535) {
+			for (int i = 0; i < minAnimationNum - 1; i++) {
+				int aStartX = minAnimationPath[i].y;
+				int aStartY = minAnimationPath[i].x;
+				int aEndX = minAnimationPath[i + 1].y;
+				int aEndY = minAnimationPath[i + 1].x;
 				D2D1_POINT_2F startP = D2D1::Point2F(
 					(aStartX*eachWidth) + startX - 25, 
 					(aStartY*eachWidth) + startY - 25);
@@ -185,9 +185,9 @@ HRESULT D2DResources::OnRender() {
 			}
 		}
 		hr = m_pRenderTarget->EndDraw();
-		if (animationNum != 0) {
+		if (minAnimationNum != 65535 && minAnimationNum != 0) {
 			Sleep(500);
-			animationNum = 0;
+			minAnimationNum = 65535;
 		}
 		if (hr == D2DERR_RECREATE_TARGET) {
 			hr = S_OK;

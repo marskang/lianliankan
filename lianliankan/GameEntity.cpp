@@ -2,6 +2,8 @@
 #include <time.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
+#include <windows.h>
 
 int startX = 70;
 int startY = 70;
@@ -14,6 +16,7 @@ int gameMap[ROW + 2][COL + 2];
 int objCount = 7;
 Point nowPoint;
 Point animationPath[(ROW + 2) * (COL + 2)];
+Point minAnimationPath[(ROW + 2) * (COL + 2)];
 
 int visited[ROW + 2][COL + 2];
 bool flag = false;
@@ -21,6 +24,7 @@ int dir[4][2] = { { -1, 0 }, { 0, -1 }, { 1, 0 }, { 0, 1 } };
 int tx, ty;
 //¼ÇÂ¼Â·¾¶
 int animationNum = 0;
+int minAnimationNum = 65535;
 
 void initData() {
 	nowPoint.x = -1;
@@ -52,6 +56,7 @@ void initData() {
 		gameMap[0][i] = 0;
 		gameMap[ROW + 1][i] = 0;
 	}
+	minAnimationNum = 65535;
 }
 
 void initVisited() {
@@ -62,15 +67,11 @@ void initVisited() {
 }
 
 void dfs(int x, int y, int turnCount, int d, int n) {
-	if (turnCount > 2 || visited[x][y] || flag) {
+	if (turnCount > 2 || visited[x][y] || n >= minAnimationNum) {
 		return;
 	}
-
 	visited[x][y] = true;
 	for (int i = 0; i < 4; i++) {
-		if (flag) {
-			return;
-		}
 		int rx = dir[i][0] + x;
 		int ry = dir[i][1] + y;
 		if (rx < 0 || rx >= ROW + 2 || ry < 0 || ry >= COL + 2) {
@@ -90,7 +91,18 @@ void dfs(int x, int y, int turnCount, int d, int n) {
 			animationPath[n].x = rx;
 			animationPath[n].y = ry;
 			animationNum = n + 1;
-			return;
+			if (animationNum < minAnimationNum) {
+				minAnimationNum = animationNum;
+				for (int i = 0; i < animationNum; i++) {
+					minAnimationPath[i] = animationPath[i];
+				}
+			}
+			char x[255];
+			sprintf_s(x, "%d", minAnimationNum);
+			OutputDebugString("x:");
+			OutputDebugString(x);
+			OutputDebugString("\n");
+			continue;
 		}
 		if (!gameMap[rx][ry] && !visited[rx][ry]) {
 			animationPath[n].x = rx;
